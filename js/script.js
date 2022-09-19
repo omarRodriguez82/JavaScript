@@ -47,7 +47,7 @@ mostrarTotal(); */
 const producto1 = new Producto ({
   nombre: prompt("Ingrese el nombre del producto"),
   nico: prompt("Ingrese la cantidad de Nicotina: 0, 3 o 6"),
-  tamano: prompt("Ingrese el tamano: 10, 30, 60 o 120"),
+  tamano: prompt("Ingrese el tamano: 30, 60 o 120"),
   cantidad: prompt("Ingrese la cantidad de unidades"),
 });
 
@@ -55,7 +55,7 @@ alert(`Usted ha cargado ${producto1.cantidad} unidades de ${producto1.nombre}, c
 
 /*Incorporar Arrays*/
 
-function Producto(id, nombre, nico, tamano, precio, cantidad){
+/* function Producto(id, nombre, nico, tamano, precio, cantidad){
   this.id = id;
   this.nombre = nombre;
   this.nico = nico;
@@ -69,7 +69,10 @@ const productos = [];
   productos.push(new Producto(productos.length +1, "Crème à Menthe", 6, 30, 1490, 1));
   productos.push(new Producto(productos.length +1, "Frozen Fruit", 0, 60, 1490, 2));
 
-console.log(productos);
+for (Producto of productos){
+  console.log(productos);
+}; */
+  
 
 /*Carga de valores en un objeto Producto con Class*/
 
@@ -84,7 +87,7 @@ console.log(productos);
 
 let nombre = prompt("Ingrese el nombre del producto");
 let nico = prompt("Ingrese la cantidad de Nicotina: 0, 3 o 6");
-let tamano = prompt("Ingrese el tamano: 10, 30, 60 o 120");
+let tamano = prompt("Ingrese el tamano: 30, 60 o 120");
 let cantidad = prompt("Ingrese la cantidad de unidades");
 
 const producto1 = new Producto (nombre, nico, tamano, cantidad);
@@ -93,6 +96,38 @@ alert(`Usted ha cargado ${cantidad} unidades de ${nombre}, con ${nico}mg
 de Nicotina en envase/s de ${tamano}ml.`); */
 
 /* ___________________________________________________________________________________________________________________ */
+/*------------------------------------------------PRIMERA PRE-ENTREGA--------------------------------------------------*/
+
+function Producto(id, nombre, nico, tamano, precio, cantidad){
+  this.id = id;
+  this.nombre = nombre;
+  this.nico = nico;
+  this.tamano = tamano;
+  this.precio = precio;
+  this.cantidad = cantidad;
+};
+
+const productos = [
+  {id: 1, nombre: "Cherry Pop", nico: 3, tamano: 120, precio: 3900, cantidad: 100},
+  {id: 2, nombre: "Crème à Menthe", nico: 6, tamano: 60, precio: 2390, cantidad: 100},
+  {id: 3, nombre: "Frozen Fruit", nico: 0, tamano: 30, precio: 1490, cantidad: 100},
+  {id: 4, nombre: "Frozen Grape", nico: 3, tamano: 120, precio: 3900, cantidad: 100},
+  {id: 5, nombre: "Nicholai", nico: 6, tamano: 60, precio: 2390, cantidad: 100},
+  {id: 6, nombre: "Kuroi Washi", nico: 0, tamano: 30, precio: 1490, cantidad: 100},
+  {id: 7, nombre: "Mr Hel", nico: 6, tamano: 120, precio: 3900, cantidad: 100},
+  {id: 8, nombre: "Yawaraki", nico: 0, tamano: 60, precio: 2390, cantidad: 100},
+];
+
+let encontrar = prompt("Ingrese el nombre del Producto a encontrar");
+let encontrado = productos.find(producto => producto.nombre === encontrar);
+/* let mensajeFind = `Producto: ${encontrado.nombre} $${encontrado.precio}`;
+alert(mensajeFind); */
+if(encontrado == encontrar){
+  alert(`El producto ${encontrar} se encuentra disponible en nuestra tienda`);
+}else{
+  alert(`Lamentablemente, el producto ${encontrar} no se encuentra disponible en nustra tienda`);
+};
+
 /* _______________PRACTICAS BOOKLET______________________ */
 
 /*function saludar(nombre, edad, altura){
@@ -228,15 +263,3 @@ let resultado = productos.filter( producto => productos.includes("camisa")); */
 
 
 /* const filtrado = productos.filter(producto => producto.precio > 800); */
-
-
-
-
-
-
-
-
-
-
-
-
