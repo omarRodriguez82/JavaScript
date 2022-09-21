@@ -98,35 +98,133 @@ de Nicotina en envase/s de ${tamano}ml.`); */
 /* ___________________________________________________________________________________________________________________ */
 /*------------------------------------------------PRIMERA PRE-ENTREGA--------------------------------------------------*/
 
-function Producto(id, nombre, nico, tamano, precio, cantidad){
+const productos = [];
+const carrito = [];
+
+function Producto (id, nombre, nico, tamano, precio, stock) {
   this.id = id;
   this.nombre = nombre;
   this.nico = nico;
   this.tamano = tamano;
   this.precio = precio;
-  this.cantidad = cantidad;
-};
+  this.stock = stock;
+  };
 
-const productos = [
-  {id: 1, nombre: "Cherry Pop", nico: 3, tamano: 120, precio: 3900, cantidad: 100},
-  {id: 2, nombre: "Crème à Menthe", nico: 6, tamano: 60, precio: 2390, cantidad: 100},
-  {id: 3, nombre: "Frozen Fruit", nico: 0, tamano: 30, precio: 1490, cantidad: 100},
-  {id: 4, nombre: "Frozen Grape", nico: 3, tamano: 120, precio: 3900, cantidad: 100},
-  {id: 5, nombre: "Nicholai", nico: 6, tamano: 60, precio: 2390, cantidad: 100},
-  {id: 6, nombre: "Kuroi Washi", nico: 0, tamano: 30, precio: 1490, cantidad: 100},
-  {id: 7, nombre: "Mr Hel", nico: 6, tamano: 120, precio: 3900, cantidad: 100},
-  {id: 8, nombre: "Yawaraki", nico: 0, tamano: 60, precio: 2390, cantidad: 100},
-];
+const producto1 = new Producto(1, "Cherry Pop", 3, 120, 3900, 100);
+productos.push(producto1);
+const producto2 = new Producto(2, "Crème à Menthe", 6, 60, 2390, 100);
+productos.push(producto2);
+const producto3 = new Producto(3, "Frozen Fruit", 0, 30, 1490, 100);
+productos.push(producto3);
+const producto4 = new Producto(4, "Frozen Grape", 3, 120, 3900, 100);
+productos.push(producto4);
+const producto5 = new Producto(5, "Nicholai", 6, 60, 2390, 100);
+productos.push(producto5);
+const producto6 = new Producto(6, "Kuroi Washi", 0, 30, 1490, 100);
+productos.push(producto6);
+const producto7 = new Producto(7, "Mr Hel", 6, 120, 3900, 100);
+productos.push(producto7);
+const producto8 = new Producto(8, "Yawaraki", 0, 60, 2390, 100);
+productos.push(producto8);
 
-let encontrar = prompt("Ingrese el nombre del Producto a encontrar");
+
+let mensaje="";
+productos.forEach(item => {
+  mensaje += `${item.id} - ${item.nombre}, Nicotina: ${item.nico}, Tamaño: ${item.tamano} Precio: $${item.precio} \n `;
+});
+alert(` Bienvenidos a Shibumi! \n Nuestros productos son: \n \n ${mensaje}`);
+
+
+let encontrar = prompt("Ingrese el nombre de un producto que desea buscar");
 let encontrado = productos.find(producto => producto.nombre === encontrar);
-/* let mensajeFind = `Producto: ${encontrado.nombre} $${encontrado.precio}`;
-alert(mensajeFind); */
-if(encontrado == encontrar){
-  alert(`El producto ${encontrar} se encuentra disponible en nuestra tienda`);
+if(encontrado !== undefined) {
+  alert(`Si! El producto ${encontrar} se encuentra disponible en nuestra tienda`);
 }else{
-  alert(`Lamentablemente, el producto ${encontrar} no se encuentra disponible en nustra tienda`);
+  alert(`Lamentablemente, el producto ${encontrar} no se encuentra disponible en nuestra tienda`);
 };
+
+function comprar(){
+  
+  let compra = Number(prompt(" Agregue productos al Carrito, o bien salga presionando el número 0: \n 1- Cherry Pop \n 2- Creme a Menthe \n 3- Frozen Fruit \n 4- Frozen Grape \n 5- Nicholai \n 6- Kuroi Washi \n 7- Mr Hel \n 8- Yawaraki"));
+
+  while (compra !== 0) {
+    let resultado;
+
+    switch (compra) {
+
+      case 1:
+        resultado = productos.find((producto) => producto.id === compra);
+        carrito.push(resultado);
+        break;
+
+      case 2:
+        resultado = productos.find((producto) => producto.id === compra);
+        carrito.push(resultado);
+        break;
+
+      case 3:
+        resultado = productos.find((producto) => producto.id === compra);
+        carrito.push(resultado);
+        break;
+
+      case 4:
+        resultado = productos.find((producto) => producto.id === compra);
+        carrito.push(resultado);
+        break;
+
+      case 5:
+        resultado = productos.find((producto) => producto.id === compra);
+        carrito.push(resultado);
+        break;
+
+      case 6:
+        resultado = productos.find((producto) => producto.id === compra);
+        carrito.push(resultado);
+        break;
+
+      case 7:
+        resultado = productos.find((producto) => producto.id === compra);
+        carrito.push(resultado);
+        break;
+        
+      case 8:
+        resultado = productos.find((producto) => producto.id === compra);
+        carrito.push(resultado);
+        break;
+
+      default:
+        alert("Ingrese un N° de Producto válido");
+    }
+    compra = Number(prompt(" Agregue productos al Carrito, o bien salga presionando el número 0: \n 1- Cherry Pop \n 2- Creme a Menthe \n 3- Frozen Fruit \n 4- Frozen Grape \n 5- Nicholai \n 6- Kuroi Washi \n 7- Mr Hel \n 8- Yawaraki"));
+  }
+};
+
+
+function verCarrito(){
+
+  carrito.forEach((producto) => {alert(`Usted ha cargado ${producto.nombre} por un monto de $${producto.precio}.`)});
+
+  let confirmar = Number(prompt("Desea confirmar la compra? \n 1- Si \n 2- No"));
+
+  switch (confirmar) {
+
+    case 1:
+      let total = carrito.reduce((acc, producto) => acc + producto.precio, 0);
+      alert(`Muchas gracias por comprar en Shibumi! \nEl monto total de su compra es de $${total}`);
+      break;
+
+    case 2:
+      carrito.splice(0, carrito.length);
+      alert("Acaba de vaciar su carrito!");
+      console.log(carrito);
+      break;
+  }
+};
+
+
+comprar();
+verCarrito();
+
 
 /* _______________PRACTICAS BOOKLET______________________ */
 
