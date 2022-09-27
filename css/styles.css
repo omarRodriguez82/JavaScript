@@ -1,49 +1,85 @@
-body{
-  background-color: black;
-}
-
-header, .alert{
+.icono {
+  position: fixed;
+  width: 4rem;
+  height: 4rem;
+  line-height: 4rem;
+  bottom: 2rem;
+  right: 2rem;
+  background: #25d366;
+  color: #FFF;
+  border-radius: 2rem;
+  text-align: center;
+  font-size: 2.5rem;
+  box-shadow: 0px 1px 10px black;
   z-index: 100;
-}
+  transition: all 500ms ease; }
 
-.description{
-  height: 25px;
-  overflow: hidden;
-  transition: height .3s ease-in .3s;
-}
+  body{
+    background-color: black;
+  }
 
-.description:hover{
-  height: 80px;
-}
+  .header{
+    display: flex;
+    align-items: center;
+    background-color: black;
+    z-index: 100;
+  } 
 
-.carrito{
-  min-height: 80vh;
-  max-width: 1000px;
-  margin: 0 auto;
-  width: 100%;
-}
+  .alert{
+    background-color: black;
+    z-index: 100;
+  }
+  .logo{
+    width: 200px;
+    margin-right: 100px;
+  }
 
-.table__productos{
-  display: flex;
-}
+  .carrusel{
+    height: 77vh;
+  }
 
-.table__productos > img{
-  width: 9rem;
-  object-fit: contain;
-  border-radius: 6px;
-  margin-right: 20px;
-}
+  .cardColor{
+    background-color: black;
+  }
 
-.table__cantidad > input{
-  width: 40px;
-  border: none;
-  outline: 0;
-  font-size: 16px;
-  font-weight: 700;
-  margin-right: 30px;
-  margin-bottom: 20px;
-}
+  .description{
+    height: 25px;
+    overflow: hidden;
+    transition: height .3s ease-in .3s;
+  }
 
-.hide, .remove{
-  display: none;
-}
+  .description:hover{
+    height: 100px;
+  }
+
+  .carrito{
+    min-height: 80vh;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .table__productos{
+    display: flex;
+  }
+
+  .table__productos > img{
+    width: 9rem;
+    object-fit: contain;
+    border-radius: 6px;
+    margin-right: 20px;
+  }
+
+  .table__cantidad > input{
+    width: 40px;
+    border: none;
+    outline: 0;
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 30px;
+    margin-bottom: 20px;
+  }
+
+  .hide, .remove{
+    display: none;
+  }

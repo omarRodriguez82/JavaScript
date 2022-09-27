@@ -1,6 +1,7 @@
-/* DEASAFIO OBLIGATORIO 1
+/*-----------------------------------------------DESAFIO OBLIGATORIO 1-------------------------------------------------*/
+/* -----------------------------------------------Simulador interactivo -----------------------------------------------*/
 
-let montoTotal = 0;
+/* let montoTotal = 0;
 let precioProducto = 0;
 let sumarProducto = 0;
 
@@ -32,8 +33,10 @@ function mostrarTotal() {
 ingresarPrecio();
 mostrarTotal(); */
 
-/* ___________________________________________________________________________________________________________________ */
-/*DESAFIO COMPLEMENTARIO 2*/
+/* __________________________________________________________________________________________________________________ */
+/*---------------------------------------------DESAFIO COMPLEMENTARIO 2-----------------------------------------------*/
+/* ------------------------------------------------Incorporar Arrays -------------------------------------------------*/
+
 /*Carga de valores en un objeto Producto con Funcion Constructora*/
 
 /* function Producto(prod){
@@ -65,13 +68,18 @@ alert(`Usted ha cargado ${producto1.cantidad} unidades de ${producto1.nombre}, c
 };
 
 const productos = [];
+
   productos.push(new Producto(productos.length +1, "Cherry Pop", 3, 120, 1490, 3));
   productos.push(new Producto(productos.length +1, "Crème à Menthe", 6, 30, 1490, 1));
   productos.push(new Producto(productos.length +1, "Frozen Fruit", 0, 60, 1490, 2));
 
 for (Producto of productos){
-  console.log(productos);
+  console.log(Producto);
 }; */
+
+/* for (let index = 0; index < productos.length; index++) {
+  console.log (productos[index].nombre);  
+} */
   
 
 /*Carga de valores en un objeto Producto con Class*/
@@ -98,98 +106,78 @@ de Nicotina en envase/s de ${tamano}ml.`); */
 /* ___________________________________________________________________________________________________________________ */
 /*------------------------------------------------PRIMERA PRE-ENTREGA--------------------------------------------------*/
 
-const productos = [];
+/* const productos = [];
 const carrito = [];
+const cantidades = [];
 
-function Producto (id, nombre, nico, tamano, precio, stock) {
+function Producto (id, nombre, tamano, precio, stock) {
   this.id = id;
   this.nombre = nombre;
-  this.nico = nico;
   this.tamano = tamano;
   this.precio = precio;
   this.stock = stock;
   };
 
-const producto1 = new Producto(1, "Cherry Pop", 3, 120, 3900, 100);
+const producto1 = new Producto(1, "Cherry Pop", 120, 1000);
 productos.push(producto1);
-const producto2 = new Producto(2, "Crème à Menthe", 6, 60, 2390, 100);
+const producto2 = new Producto(2, "Crème à Menthe", 60, 1000);
 productos.push(producto2);
-const producto3 = new Producto(3, "Frozen Fruit", 0, 30, 1490, 100);
+const producto3 = new Producto(3, "Frozen Fruit", 30, 1000);
 productos.push(producto3);
-const producto4 = new Producto(4, "Frozen Grape", 3, 120, 3900, 100);
+const producto4 = new Producto(4, "Frozen Grape", 120, 1000);
 productos.push(producto4);
-const producto5 = new Producto(5, "Nicholai", 6, 60, 2390, 100);
+const producto5 = new Producto(5, "Nicholai", 60, 1000);
 productos.push(producto5);
-const producto6 = new Producto(6, "Kuroi Washi", 0, 30, 1490, 100);
+const producto6 = new Producto(6, "Kuroi Washi", 30, 1000);
 productos.push(producto6);
-const producto7 = new Producto(7, "Mr Hel", 6, 120, 3900, 100);
+const producto7 = new Producto(7, "Mr Hel", 120, 1000);
 productos.push(producto7);
-const producto8 = new Producto(8, "Yawaraki", 0, 60, 2390, 100);
+const producto8 = new Producto(8, "Yawaraki", 60, 1000);
 productos.push(producto8);
 
 
 let mensaje="";
 productos.forEach(item => {
-  mensaje += `${item.id} - ${item.nombre}, Nicotina: ${item.nico}, Tamaño: ${item.tamano} Precio: $${item.precio} \n `;
+  mensaje += `${item.id} - ${item.nombre}: Tamaño: ${item.tamano}ml, Precio: $${item.precio} \n `;
 });
-alert(` Bienvenidos a Shibumi! \n Nuestros productos son: \n \n ${mensaje}`);
+alert(` Bienvenidos a Shibumi! \n Nuestros productos son: \n \n ${mensaje}`); */
 
 
-let encontrar = prompt("Ingrese el nombre de un producto que desea buscar");
+/* let encontrar = prompt("Ingrese el nombre de un producto que desea buscar");
 let encontrado = productos.find(producto => producto.nombre === encontrar);
 if(encontrado !== undefined) {
   alert(`Si! El producto ${encontrar} se encuentra disponible en nuestra tienda`);
 }else{
   alert(`Lamentablemente, el producto ${encontrar} no se encuentra disponible en nuestra tienda`);
-};
+}; */
 
-function comprar(){
+
+/* function comprar(){
   
   let compra = Number(prompt(" Agregue productos al Carrito, o bien salga presionando el número 0: \n 1- Cherry Pop \n 2- Creme a Menthe \n 3- Frozen Fruit \n 4- Frozen Grape \n 5- Nicholai \n 6- Kuroi Washi \n 7- Mr Hel \n 8- Yawaraki"));
 
   while (compra !== 0) {
     let resultado;
+    let cantidad = 0;
 
     switch (compra) {
 
       case 1:
-        resultado = productos.find((producto) => producto.id === compra);
-        carrito.push(resultado);
-        break;
-
       case 2:
-        resultado = productos.find((producto) => producto.id === compra);
-        carrito.push(resultado);
-        break;
-
       case 3:
-        resultado = productos.find((producto) => producto.id === compra);
-        carrito.push(resultado);
-        break;
-
       case 4:
-        resultado = productos.find((producto) => producto.id === compra);
-        carrito.push(resultado);
-        break;
-
       case 5:
-        resultado = productos.find((producto) => producto.id === compra);
-        carrito.push(resultado);
-        break;
-
       case 6:
-        resultado = productos.find((producto) => producto.id === compra);
-        carrito.push(resultado);
-        break;
-
-      case 7:
-        resultado = productos.find((producto) => producto.id === compra);
-        carrito.push(resultado);
-        break;
-        
+      case 7:        
       case 8:
-        resultado = productos.find((producto) => producto.id === compra);
+        resultado = productos.find((producto) => producto.id === compra);        
+        cantidad = Number(prompt("ingrese cantidad"));
+        while (cantidad <= 0 || isNaN(cantidad)) {
+          alert("Ha introducido un precio o caracter inválido, por lo que detendremos la operación.");
+          cantidad = Number(prompt("ingrese cantidad"));
+          }
         carrito.push(resultado);
+        cantidades.push(cantidad);
         break;
 
       default:
@@ -197,36 +185,107 @@ function comprar(){
     }
     compra = Number(prompt(" Agregue productos al Carrito, o bien salga presionando el número 0: \n 1- Cherry Pop \n 2- Creme a Menthe \n 3- Frozen Fruit \n 4- Frozen Grape \n 5- Nicholai \n 6- Kuroi Washi \n 7- Mr Hel \n 8- Yawaraki"));
   }
-};
+}; */
 
 
-function verCarrito(){
+/* function verCarrito(){
 
-  carrito.forEach((producto) => {alert(`Usted ha cargado ${producto.nombre} por un monto de $${producto.precio}.`)});
+  for (let index = 0; index < carrito.length; index++) {
+    alert(`Usted ha cargado ${cantidades[index]} unidades de ${carrito[index].nombre} de ${carrito[index].tamano}ml, por un monto de $${(carrito[index].precio*cantidades[index])}.`)}    
+
 
   let confirmar = Number(prompt("Desea confirmar la compra? \n 1- Si \n 2- No"));
 
   switch (confirmar) {
 
     case 1:
-      let total = carrito.reduce((acc, producto) => acc + producto.precio, 0);
+      let total = 0;
+      for (let index = 0; index < cantidades.length; index++) {
+        total = total + (carrito[index].precio*cantidades[index]);        
+      }
       alert(`Muchas gracias por comprar en Shibumi! \nEl monto total de su compra es de $${total}`);
       break;
 
     case 2:
       carrito.splice(0, carrito.length);
+      cantidades.splice(0, cantidades.length);
       alert("Acaba de vaciar su carrito!");
       console.log(carrito);
       break;
-  }
+  };
 };
 
 
 comprar();
-verCarrito();
+verCarrito(); */
+
+/* __________________________________________________________________________________________________________________ */
+/*---------------------------------------------DESAFIO COMPLEMENTARIO 3-----------------------------------------------*/
+/*--------------------------------------------- DOM Interactuar con HTML ---------------------------------------------*/
+
+  function Producto (id, nombre, tamano, precio) {
+  this.id = id;
+  this.nombre = nombre;
+  this.tamano = tamano;
+  this.precio = precio;
+  };
+
+let productos = [
+  {id: 1, nombre: "Cherry Pop", tamano: 120, precio: 1490},
+  {id: 2, nombre: "Crème à Menthe", tamano: 60, precio: 1490},
+  {id: 3, nombre: "Frozen Fruit", tamano: 30, precio: 1490},
+  {id: 4, nombre: "Frozen Grape", tamano: 120, precio: 1490},
+  {id: 5, nombre: "Nicholai", tamano: 60, precio: 1490},
+  {id: 6, nombre: "Kuroi Washi", tamano: 30, precio: 1490},
+  {id: 7, nombre: "Mr Hel", tamano: 120, precio: 1490},
+  {id: 8, nombre: "Yawaraki", tamano: 60, precio: 1490},
+];
+
+const labelPrecio = document.getElementById("labelPrecio");
+
+let nuevoPrecio = prompt("Ingrese el nuevo precio");
+
+productos.forEach(producto => {
+  labelPrecio.innerText = `${nuevoPrecio}`
+  labelPrecio.append(span);
+});
+
+/* -----------------------------------------segundo intento -----------------------------------------*/
+
+/* function Producto (id, nombre, tamano, precio) {
+  this.id = id;
+  this.nombre = nombre;
+  this.tamano = tamano;
+  this.precio = precio;
+  };
+
+  const productos = [];
+  const producto1 = new Producto (1, "Cherry Pop", 120, 1);
+  const producto2 = new Producto (2, "Crème à Menthe", 60, 2);
+  const producto3 = new Producto (3, "Frozen Fruit", 30, 3);
+  const producto4 = new Producto (4, "Frozen Grape", 120, 4);
+  const producto5 = new Producto (5, "Nicholai", 60, 5);
+  const producto6 = new Producto (6, "Kuroi Washi", 30, 6);
+  const producto7 = new Producto (7, "Mr Hel", 120, 7);
+  const producto8 = new Producto (8, "Yawaraki", 60, 8);
+  productos.push(producto1, producto2, producto3, producto4, producto5, producto6, producto7, producto8);
+
+  const labelPrecio = document.querySelectorAll("#labelPrecio");
+  
+    for (const item of productos){
+    let nuevoPrecio = prompt(`Ingrese el nuevo precio de ${item.nombre}`);
+    item.precio = nuevoPrecio;
+
+    const span = document.createElement("span");
+    span.classList.add("span");
+    span.innerHTML = `${productos.precio}`;
+
+      labelPrecio[(item.id)-1].innerHTM= `${nuevoPrecio}`;
+      labelPrecio.append();      
+  }; */
 
 
-/* _______________PRACTICAS BOOKLET______________________ */
+/* _______________________________________________________PRACTICAS BOOKLET_______________________________________________________ */
 
 /*function saludar(nombre, edad, altura){
   let mensaje = `Hola ${nombre}, usted tiene ${edad} años de edad y mide ${altura} mts.`;
@@ -331,33 +390,43 @@ if (producto1 != "" && producto2 != "" && producto3 != "" && producto4 != ""){
 
 
 /* const productos = [
-  { id: 1, nombre: "camisa", precio: 1000 },
-  { id: 2, nombre: "pantalon", precio: 1000 },
-  { id: 3, nombre: "gorra", precio: 1000 },
-  { id: 4, nombre: "zapato", precio: 1000 },
-];
- */
-/* productos.forEach(item => {
-console.log(item.id, item.nombre, item.precio);
-}); */
-/* let nombre = prompt("Ingrese el nombre del producto");
-
-let encontrado = productos.find(ropa => ropa.nombre === nombre);
-let mostrar = `
-   nombre: ${encontrado.nombre}
-   $${encontrado.precio}
- `; */
-
-/*  const productos = [
   { id: 1, nombre: "camisa", precio: 700 },
   { id: 2, nombre: "pantalon", precio: 1500 },
   { id: 3, nombre: "gorra", precio: 300 },
   { id: 4, nombre: "zapato", precio: 2000 },
-];
+]; */
 
-let filtro = prompt("Ingrese un producto a filtrar");
+/* productos.forEach(item => {
+console.log(item.id, item.nombre, item.precio)}); */
 
-let resultado = productos.filter( producto => productos.includes("camisa")); */
+/* let nombre = prompt("Ingrese el nombre del producto");
+let encontrado = productos.find((ropa) => ropa.nombre === nombre);
+let mostrar = `Producto: ${encontrado.nombre} \nPrecio: $${encontrado.precio}`;
+alert(mostrar); */
 
+/* let precio = Number(prompt("Ingrese un precio a filtrar"));
+let resultado = productos.filter((producto) => producto.precio > precio);
 
-/* const filtrado = productos.filter(producto => producto.precio > 800); */
+filtrados.forEach((item) => {
+  let mostrar = `Producto: ${item.nombre} \nPrecio $${item.precio}`;
+  alert(mostrar);
+}); */
+
+/* let precios = productos.map(item => item.precio);
+let nombres = productos.map(item => item.nombre);
+let precioActualizado = productos.map(item => {
+  return {
+    id: item.id,
+    nombre: item.nombre,
+    precio: item.precio * 1.21,
+  };
+});
+console.log(precioActualizado); */
+
+/* let mensaje = "";
+productos.forEach(item => {
+  mensaje += `Id: ${item.id}, Nombre: ${item.nombre}, Precio: $${item.precio}\n`;
+  //alert(mensaje); Si pongo el alert acá me va tirando de a uno y sumando en el alert a mediuda que va cargando el forEach.
+});
+alert(mensaje); */
+
