@@ -133,10 +133,10 @@ productos.push(producto6);
 const producto7 = new Producto(7, "Mr Hel", 120, 1000);
 productos.push(producto7);
 const producto8 = new Producto(8, "Yawaraki", 60, 1000);
-productos.push(producto8);
+productos.push(producto8); */
 
 
-let mensaje="";
+/* et mensaje="";
 productos.forEach(item => {
   mensaje += `${item.id} - ${item.nombre}: Tamaño: ${item.tamano}ml, Precio: $${item.precio} \n `;
 });
@@ -185,10 +185,10 @@ if(encontrado !== undefined) {
     }
     compra = Number(prompt(" Agregue productos al Carrito, o bien salga presionando el número 0: \n 1- Cherry Pop \n 2- Creme a Menthe \n 3- Frozen Fruit \n 4- Frozen Grape \n 5- Nicholai \n 6- Kuroi Washi \n 7- Mr Hel \n 8- Yawaraki"));
   }
-}; */
+};
 
 
-/* function verCarrito(){
+function verCarrito(){
 
   for (let index = 0; index < carrito.length; index++) {
     alert(`Usted ha cargado ${cantidades[index]} unidades de ${carrito[index].nombre} de ${carrito[index].tamano}ml, por un monto de $${(carrito[index].precio*cantidades[index])}.`)}    
@@ -223,7 +223,7 @@ verCarrito(); */
 /*---------------------------------------------DESAFIO COMPLEMENTARIO 3-----------------------------------------------*/
 /*--------------------------------------------- DOM Interactuar con HTML ---------------------------------------------*/
 
-  function Producto (id, nombre, tamano, precio) {
+  /* function Producto (id, nombre, tamano, precio) {
   this.id = id;
   this.nombre = nombre;
   this.tamano = tamano;
@@ -248,7 +248,8 @@ let nuevoPrecio = prompt("Ingrese el nuevo precio");
 productos.forEach(producto => {
   labelPrecio.innerText = `${nuevoPrecio}`
   labelPrecio.append(span);
-});
+}); */
+
 
 /* -----------------------------------------segundo intento -----------------------------------------*/
 
@@ -284,149 +285,94 @@ productos.forEach(producto => {
       labelPrecio.append();      
   }; */
 
+/*-----------------------------------------------DESAFIO OBLIGATORIO 2-------------------------------------------------*/
+/*--------------------------------------------------Incorporar eventos--------------------------------------------------*/
 
-/* _______________________________________________________PRACTICAS BOOKLET_______________________________________________________ */
+function Producto (id, nombre, imagen,/* tamano, precio*/) {
+  this.id = id;
+  this.nombre = nombre;
+  this.imagen = imagen;
+  /*this.tamano = tamano;
+  this.precio = precio;*/
+  };
 
-/*function saludar(nombre, edad, altura){
-  let mensaje = `Hola ${nombre}, usted tiene ${edad} años de edad y mide ${altura} mts.`;
-  alert (mensaje);
+
+let productos = [
+  {id: 1, nombre: "Cherry Pop", imagen: "https://i.ibb.co/WWc2FdB/Cherry-Pop.webp", /* tamano: 120, precio: 1499, */},
+  {id: 2, nombre: "Crème à Menthe", imagen: "https://i.ibb.co/XXGPBgQ/Creme-Menthe.webp", /* tamano: 60, precio: 1490,  */},
+  {id: 3, nombre: "Frozen Fruit", imagen: "https://i.ibb.co/ch96zvK/Frozen-Fruit.webp", /* tamano: 30, precio: 1490,  */},
+  {id: 4, nombre: "Frozen Grape", imagen: "https://i.ibb.co/R9QfWfD/Frozen-Grape.webp", /* tamano: 120, precio: 1490, */},
+  {id: 5, nombre: "Nicholai", imagen: "https://i.ibb.co/yQNNZVY/nicholai.webp", /* tamano: 60, precio: 1490,  */},
+  {id: 6, nombre: "Kuroi Washi", imagen: "https://i.ibb.co/N9HcsMY/kuroi-Washi.webp", /* tamano: 30, precio: 1490,  */},
+  {id: 7, nombre: "Mr Hel", imagen: "https://i.ibb.co/9vqVmjt/mrHel.webp", /* tamano: 120, precio: 1490, */},
+  {id: 8, nombre: "Yawaraki", imagen: "https://i.ibb.co/vmSBVZk/yawaraki.webp", /* tamano: 60, precio: 1490,  */},
+];
+
+
+let tamanos = [30, 60, 120];
+let precios = [1490, 2390, 3900];
+
+
+let div = document.getElementById("div");
+
+
+productos.forEach(producto => {
+  let renderizar = document.createElement("div")
+  renderizar.innerHTML = `
+          <div class="col d-flex justify-content-center mb-4">
+            <div class="card shadow mb-1 cardColor rounded" style="width: 20rem">
+
+              <h5 class="card-title pt-2 text-center text-primary">${producto.nombre}</h5>
+              <img src="${producto.imagen}" alt="Cherry-Pop" class="card-img-top"/>            
+              
+              <div class="card-body">
+                <p class="card-text text-white-50 description">Increíble líquido de Cerezas combinadas y un toque de frescura, del Mixer internacional Nachef</p>
+                
+                <div class="mb-2">                  
+                  <fieldset class="single-option-radio fieldset" id="ProductSelect-option-0">
+                    <p class="text-white mb-2">Tamaños:</p>
+
+                    <input type="radio" value="30ml" id="30" name="cantidad" class="single-option-selector__radio">
+                    <label for="30" class="text-primary">30 ml</label>
+                    
+                    <input type="radio" value="60ml" id="60" name="cantidad" class="single-option-selector__radio">
+                    <label for="60" class="text-primary">60 ml</label>
+                    
+                    <input type="radio" value="120ml" id="120" name="cantidad" class="single-option-selector__radio">
+                    <label for="120" class="text-primary">120 ml</label>             
+                  </fieldset>
+                </div>
+
+                <h5 class="text-primary mb-3">Precio: <span>$ </span><span id="labelPrecio" class="precio">${producto.precio}</span></h5>
+                <div class="d-grid gap-2">
+                  <button id="añadir" class="btn btn-primary button">
+                    Añadir a Carrito
+                  </button>
+                </div>
+              </div>
+              
+            </div>            
+          </div>  `
+
+  div.append(renderizar)
+
+
+  const ml30 = document.getElementById("30")
+  const ml60 = document.getElementById("60")
+  const ml120 = document.getElementById("120")
+  const añadir = document.getElementById("añadir")
+  
+  const elegirMl = () => {
+    if(ml30.checked){
+      console.log(ml30.value);    
+    }else if(ml60.checked){
+      console.log(ml60.value);
+    }else if(ml120.checked){
+      console.log(ml120.value);
+  }
 }
 
-nombre = prompt("Ingrese su nombre");
-edad = prompt("Ingrese su edad");
-altura = prompt("Ingrese su altura en metros");
 
-saludar(nombre, edad, altura); */
+añadir.addEventListener("click", elegirMl)
 
-
-
-
-/* let nombre = "Homero";
-let apellido = "Simpson";
-let edad = 50;
-
-console.log(` Nombre: ${nombre}\n Apellido: ${apellido}\n Edad: ${edad}`); */
-
-/* 
-let precio = Number(prompt("Ingrese el precio"));
-descuento20 = precio * 20 / 100;
-descuento50 = precio * 50 / 100;
-precioFinal20 = precio - descuento20;
-precioFinal50 = precio - descuento50;
-alert(`El precio final con 20% de descuento es de $${precioFinal20}`);
-alert(`El precio final con 50% de descuento es de $${precioFinal50}`); */
-
-/* _______________________________________________
-
-let nombre = prompt("Ingrese un nombre");
-
-if(nombre === "Gus"){
-  alert("Fui yo");
-}else{
-  alert("Yo no fui")
-} */
-
-
-/* let tecla = prompt("Presione un tecla");
-
-while (tecla != ""){
-
-if (tecla === "y" || tecla === "Y"){
-  alert("Correcto")
-}else{
-  alert("Incorrecto")
-};
-
-tecla = prompt("Presione un tecla");
-
-} */
-
-
-
-/* let numero = prompt("Ingrese un numero entre 1 y 5");
-
-if (numero == 1){
-  alert("Elegiste a Homero")
-}else if (numero == 2){
-  alert("Elegiste a Marge")
-}else if (numero == 3){
-  alert("Elegiste a Bart")
-}else if (numero == 4){
-  alert("Elegiste a Lisa")
-}else if (numero == 5){
-  alert("Elegiste a Maggie")
-}else{
-  alert("No elegiste un número entre 1 y 5")
-}; */
-
-
-
-
-/* let numero = prompt("Ingresa un número y te diremos si es un precio bajo, medio o alto");
-
-if (numero <= 1000){
-  alert("El presupuesto es bajo")
-}else if(numero >= 1001 && numero <= 3000){
-  alert("El presupuesto es medio")
-}else if(numero >= 3001){
-  alert("EL presupuesto es alto")
-} */
-
-
-
-/*Actividad 28*/
-
-/* let producto1 = prompt("Ingrese el Producto 1");
-let producto2 = prompt("Ingrese el Producto 2");
-let producto3 = prompt("Ingrese el Producto 3");
-let producto4 = prompt("Ingrese el Producto 4");
-
-if (producto1 != "" && producto2 != "" && producto3 != "" && producto4 != ""){
-  alert(`Usted ha cargado ${producto1}, ${producto2}, ${producto3}, y ${producto4}`)
-} else if(producto1 == "" || producto2 == "" || producto3 == "" || producto4 == ""){
-  alert("Recuerde cargar todos los productos")
-}; */
-
-
-
-/* const productos = [
-  { id: 1, nombre: "camisa", precio: 700 },
-  { id: 2, nombre: "pantalon", precio: 1500 },
-  { id: 3, nombre: "gorra", precio: 300 },
-  { id: 4, nombre: "zapato", precio: 2000 },
-]; */
-
-/* productos.forEach(item => {
-console.log(item.id, item.nombre, item.precio)}); */
-
-/* let nombre = prompt("Ingrese el nombre del producto");
-let encontrado = productos.find((ropa) => ropa.nombre === nombre);
-let mostrar = `Producto: ${encontrado.nombre} \nPrecio: $${encontrado.precio}`;
-alert(mostrar); */
-
-/* let precio = Number(prompt("Ingrese un precio a filtrar"));
-let resultado = productos.filter((producto) => producto.precio > precio);
-
-filtrados.forEach((item) => {
-  let mostrar = `Producto: ${item.nombre} \nPrecio $${item.precio}`;
-  alert(mostrar);
-}); */
-
-/* let precios = productos.map(item => item.precio);
-let nombres = productos.map(item => item.nombre);
-let precioActualizado = productos.map(item => {
-  return {
-    id: item.id,
-    nombre: item.nombre,
-    precio: item.precio * 1.21,
-  };
-});
-console.log(precioActualizado); */
-
-/* let mensaje = "";
-productos.forEach(item => {
-  mensaje += `Id: ${item.id}, Nombre: ${item.nombre}, Precio: $${item.precio}\n`;
-  //alert(mensaje); Si pongo el alert acá me va tirando de a uno y sumando en el alert a mediuda que va cargando el forEach.
-});
-alert(mensaje); */
-
+})
