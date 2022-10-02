@@ -18,6 +18,20 @@
     background-color: black;
   }
 
+  .offcanvas{
+    background-color: black;
+  }
+
+  .eliminarItem{
+    background-color: red;
+    border: none;
+    margin-top: 1rem;
+  }
+
+  .imagen-carrito{
+    width: 400px;
+  }
+
   .header{
     display: flex;
     align-items: center;
@@ -31,9 +45,9 @@
   }
   .logo{
     width: 200px;
-    margin-right: 100px;
+    margin-right: auto;
   }
-
+  
   .carrusel{
     height: 77vh;
   }

@@ -287,41 +287,33 @@ productos.forEach(producto => {
 
 /*-----------------------------------------------DESAFIO OBLIGATORIO 2-------------------------------------------------*/
 /*--------------------------------------------------Incorporar eventos--------------------------------------------------*/
-
-function Producto (id, nombre, imagen,/* tamano, precio*/) {
+/* function Producto (id, nombre, imagen){
   this.id = id;
   this.nombre = nombre;
   this.imagen = imagen;
-  /*this.tamano = tamano;
-  this.precio = precio;*/
   };
 
-
 let productos = [
-  {id: 1, nombre: "Cherry Pop", imagen: "https://i.ibb.co/WWc2FdB/Cherry-Pop.webp", /* tamano: 120, precio: 1499, */},
-  {id: 2, nombre: "Crème à Menthe", imagen: "https://i.ibb.co/XXGPBgQ/Creme-Menthe.webp", /* tamano: 60, precio: 1490,  */},
-  {id: 3, nombre: "Frozen Fruit", imagen: "https://i.ibb.co/ch96zvK/Frozen-Fruit.webp", /* tamano: 30, precio: 1490,  */},
-  {id: 4, nombre: "Frozen Grape", imagen: "https://i.ibb.co/R9QfWfD/Frozen-Grape.webp", /* tamano: 120, precio: 1490, */},
-  {id: 5, nombre: "Nicholai", imagen: "https://i.ibb.co/yQNNZVY/nicholai.webp", /* tamano: 60, precio: 1490,  */},
-  {id: 6, nombre: "Kuroi Washi", imagen: "https://i.ibb.co/N9HcsMY/kuroi-Washi.webp", /* tamano: 30, precio: 1490,  */},
-  {id: 7, nombre: "Mr Hel", imagen: "https://i.ibb.co/9vqVmjt/mrHel.webp", /* tamano: 120, precio: 1490, */},
-  {id: 8, nombre: "Yawaraki", imagen: "https://i.ibb.co/vmSBVZk/yawaraki.webp", /* tamano: 60, precio: 1490,  */},
+  {id: 1, nombre: "Cherry Pop", imagen: "https://i.ibb.co/WWc2FdB/Cherry-Pop.webp"},
+  {id: 2, nombre: "Crème à Menthe", imagen: "https://i.ibb.co/XXGPBgQ/Creme-Menthe.webp"},
+  {id: 3, nombre: "Frozen Fruit", imagen: "https://i.ibb.co/ch96zvK/Frozen-Fruit.webp"},
+  {id: 4, nombre: "Frozen Grape", imagen: "https://i.ibb.co/R9QfWfD/Frozen-Grape.webp"},
+  {id: 5, nombre: "Nicholai", imagen: "https://i.ibb.co/yQNNZVY/nicholai.webp"},
+  {id: 6, nombre: "Kuroi Washi", imagen: "https://i.ibb.co/N9HcsMY/kuroi-Washi.webp"},
+  {id: 7, nombre: "Mr Hel", imagen: "https://i.ibb.co/9vqVmjt/mrHel.webp"},
+  {id: 8, nombre: "Yawaraki", imagen: "https://i.ibb.co/vmSBVZk/yawaraki.webp"},
 ];
 
-
-let tamanos = [30, 60, 120];
-let precios = [1490, 2390, 3900];
-
+//let tamanos = [30, 60, 120];
+//let precios = [1490, 2390, 3900];
 
 let div = document.getElementById("div");
-
 
 productos.forEach(producto => {
   let renderizar = document.createElement("div")
   renderizar.innerHTML = `
           <div class="col d-flex justify-content-center mb-4">
             <div class="card shadow mb-1 cardColor rounded" style="width: 20rem">
-
               <h5 class="card-title pt-2 text-center text-primary">${producto.nombre}</h5>
               <img src="${producto.imagen}" alt="Cherry-Pop" class="card-img-top"/>            
               
@@ -331,7 +323,6 @@ productos.forEach(producto => {
                 <div class="mb-2">                  
                   <fieldset class="single-option-radio fieldset" id="ProductSelect-option-0">
                     <p class="text-white mb-2">Tamaños:</p>
-
                     <input type="radio" value="30ml" id="30" name="cantidad" class="single-option-selector__radio">
                     <label for="30" class="text-primary">30 ml</label>
                     
@@ -342,7 +333,6 @@ productos.forEach(producto => {
                     <label for="120" class="text-primary">120 ml</label>             
                   </fieldset>
                 </div>
-
                 <h5 class="text-primary mb-3">Precio: <span>$ </span><span id="labelPrecio" class="precio">${producto.precio}</span></h5>
                 <div class="d-grid gap-2">
                   <button id="añadir" class="btn btn-primary button">
@@ -355,7 +345,6 @@ productos.forEach(producto => {
           </div>  `
 
   div.append(renderizar)
-
 
   const ml30 = document.getElementById("30")
   const ml60 = document.getElementById("60")
@@ -372,7 +361,137 @@ productos.forEach(producto => {
   }
 }
 
-
 añadir.addEventListener("click", elegirMl)
 
+}) */
+
+/* ___________________________________________________________________________________________________________________ */
+/*------------------------------------------------SEGUNDA PRE-ENTREGA--------------------------------------------------*/
+const contenedorCarrito = document.getElementById("contenedor-carrito");
+const vaciarCarrito = document.getElementById("vaciar-carrito");
+const contadorCarrito = document.getElementById("contador");
+const precioTotal = document.getElementById("precio-total");
+//const borrarItemCarrito = document.getElementById("trash");
+
+const carrito = [];
+
+/* get local storage */
+document.addEventListener('DOMContentLoaded', () =>{
+  if(localStorage.getItem('carrito')){
+      carrito = JSON.parse(localStorage.getItem('carrito'));
+     actualizarCarrito();
+    }
+  })
+
+function Producto (id, nombre, imagen, descripcion, tamano, precio) {
+  this.id = id;
+  this.nombre = nombre;
+  this.imagen = imagen;
+  this.descripcion = descripcion;
+  this.tamano = tamano;
+  this.precio = precio;
+};
+
+const productos = [
+  {id: 1, nombre: "Cherry Pop", imagen: "https://i.ibb.co/WWc2FdB/Cherry-Pop.webp", descripcion:"Increíble líquido de Cerezas combinadas y un toque de frescura, del Mixer internacional Nachef", tamano: 30, precio: 1490},
+  {id: 2, nombre: "Crème à Menthe", imagen: "https://i.ibb.co/XXGPBgQ/Creme-Menthe.webp", descripcion:"Mix de Mentas dulces cremosas y frescas. Receta mágica del Mixer Internacional Nachef", tamano: 30, precio: 1490},
+  {id: 3, nombre: "Frozen Fruit", imagen: "https://i.ibb.co/ch96zvK/Frozen-Fruit.webp", descripcion:"Mix de frutas tropicales dulces con un toque de frescura. Un e-liquid inolvidable", tamano: 30, precio: 1490},
+  {id: 4, nombre: "Frozen Grape", imagen: "https://i.ibb.co/R9QfWfD/Frozen-Grape.webp", descripcion:"Mix de uvas blancas y negras dulces con un toque de frescura. Una combinacion justa y balanceada del Mixer Internacional Nachef", tamano: 30, precio: 1490},
+  {id: 5, nombre: "Nicholai", imagen: "https://i.ibb.co/yQNNZVY/nicholai.webp", descripcion:"Ya dejaste los cigarrillos, pero todavía extrañas ese dulce sabor a tabaco?  Lo podes resolver vapeando este Tabaquil. Intenso y equilibrado", tamano: 30, precio: 1490},
+  {id: 6, nombre: "Kuroi Washi", imagen: "https://i.ibb.co/N9HcsMY/kuroi-Washi.webp", descripcion:"Se conjugaron sabores intensos para llegar a un blend único, irrepetible. Se caracteriza por ser aromático y de sabor acaramelado", tamano: 30, precio: 1490},
+  {id: 7, nombre: "Mr Hel", imagen: "https://i.ibb.co/9vqVmjt/mrHel.webp", descripcion:"Una maravilla de Max Savage, un mix de sabores complejos de tabaco, frutos secos y crema de vainillas que logra un aroma único", tamano: 30, precio: 1490},
+  {id: 8, nombre: "Yawaraki", imagen: "https://i.ibb.co/vmSBVZk/yawaraki.webp", descripcion:"Tabaco Suave, con avellanas, nueces, almendras y maní tostados, notas de rhum y Kahlua. Mucho cuerpo, con una sensación cremosa", tamano: 30, precio: 1490},
+];
+
+//A futuro agregar tamaños y precios
+/*const precios = [
+{id: 30, precio: 1490},
+{id: 60, precio: 2490},
+{id: 120, precio: 3900},
+]; */
+
+productos.forEach(producto => {
+  let renderizar = document.createElement("div")
+  renderizar.innerHTML = `
+    <div class="col d-flex justify-content-center mb-4">
+      <div class="card shadow mb-1 cardColor rounded" style="width: 20rem">
+
+        <h5 class="card-title pt-2 text-center text-primary">${producto.nombre}</h5>
+        <img src="${producto.imagen}" alt="Cherry-Pop" class="card-img-top"/>            
+        
+        <div class="card-body">
+          <p class="card-text text-white-50 description">${producto.descripcion}</p>
+
+          <h5 class="text-primary mb-3">Precio: <span>$ </span><span id="labelPrecio" class="precio">${producto.precio}</span></h5>
+          <div class="d-grid gap-2">
+            <button id=${producto.id} class="btn btn-primary button">
+              Añadir a Carrito
+            </button>
+          </div>
+        </div>
+        
+      </div>            
+    </div>
+  `
+  div.append(renderizar)
+
+  const boton = document.getElementById(producto.id)
+  boton.addEventListener ("click", () => {
+    let productoExiste = carrito.find(item => item.id === producto.id)
+    if (productoExiste === undefined){
+      carrito.push({
+        id: producto.id,
+        nombre: producto.nombre,
+        imagen: producto.imagen,
+        precio: producto.precio,
+        cantidad: 1,
+      })    
+    }else{
+      productoExiste.precio = productoExiste.precio + producto.precio
+      productoExiste.cantidad = productoExiste.cantidad + 1
+    }
+    actualizarCarrito(); 
+  })
+})
+
+const actualizarCarrito = () => {
+contenedorCarrito.innerHTML="";
+
+carrito.forEach(producto => {
+  const carritoActualizado = document.createElement("div");
+     carritoActualizado.innerHTML =`
+  <div class="card bg-dark mb-3" style="max-width: 400px;">
+    <div class="row g-0">
+        <div class="col-md-4 align-items-center imagen-carrito">
+          <img src="${producto.imagen}" class="img-fluid rounded" alt="Imagen Producto"/>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body card-carrito">
+            <h5 class="card-title text-white">${producto.nombre}</h5>
+            <p class="card-text"><small class="text-white">Cantidad: ${producto.cantidad}</small></p>
+            <h6 class="card-text"><small class="text-white">Precio: $${producto.precio}</small></h6>                      
+            <button id="trash" class="eliminarItem rounded" onclick="borrarItem(${producto.id})"><i class="fas fa-trash-alt mr-2 text-white"></i></button>
+          </div>
+        </div>
+    </div>
+  </div>
+`          
+contenedorCarrito.append(carritoActualizado)
+})
+localStorage.setItem("carrito", JSON.stringify(carrito))
+
+    contadorCarrito.innerText = carrito.length
+    precioTotal.innerText = carrito.reduce((acum, producto) => acum + producto.precio, 0)
+}
+
+const borrarItem = (prod) => {
+  const item = carrito.find(producto=> prod.id === producto.id);
+  const indice = carrito.indexOf(item)
+  carrito.splice(indice, 1)
+  actualizarCarrito()
+}
+
+vaciarCarrito.addEventListener("click", ()=> {
+  carrito.length = 0
+  actualizarCarrito()
 })
