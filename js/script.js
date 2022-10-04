@@ -375,7 +375,7 @@ const contadorCarrito = document.getElementById('contador');
 const precioTotal = document.getElementById('precio-total');
 
 //declaro el array carrito y lo dejo vacío
-const carrito = [];
+let carrito = [];
 
 //traigo el localStorage
 document.addEventListener('DOMContentLoaded', () => {
