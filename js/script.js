@@ -367,22 +367,25 @@ añadir.addEventListener("click", elegirMl)
 
 /* ___________________________________________________________________________________________________________________ */
 /*------------------------------------------------SEGUNDA PRE-ENTREGA--------------------------------------------------*/
-const contenedorCarrito = document.getElementById("contenedor-carrito");
-const vaciarCarrito = document.getElementById("vaciar-carrito");
-const contadorCarrito = document.getElementById("contador");
-const precioTotal = document.getElementById("precio-total");
-//const borrarItemCarrito = document.getElementById("trash");
 
+//traigo nodos por ID
+const contenedorCarrito = document.getElementById('contenedor-carrito');
+const vaciarCarrito = document.getElementById('vaciar-carrito');
+const contadorCarrito = document.getElementById('contador');
+const precioTotal = document.getElementById('precio-total');
+
+//declaro el array carrito y lo dejo vacío
 const carrito = [];
 
-/* get local storage */
-document.addEventListener('DOMContentLoaded', () =>{
+//traigo el localStorage
+document.addEventListener('DOMContentLoaded', () => {
   if(localStorage.getItem('carrito')){
-      carrito = JSON.parse(localStorage.getItem('carrito'));
-     actualizarCarrito();
-    }
-  })
+    carrito = JSON.parse(localStorage.getItem('carrito'))
+    actualizarCarrito()
+  }
+})
 
+//declaro la funcion constructora de objetos
 function Producto (id, nombre, imagen, descripcion, tamano, precio) {
   this.id = id;
   this.nombre = nombre;
@@ -392,6 +395,7 @@ function Producto (id, nombre, imagen, descripcion, tamano, precio) {
   this.precio = precio;
 };
 
+//declaro el array de productos y lo lleno
 const productos = [
   {id: 1, nombre: "Cherry Pop", imagen: "https://i.ibb.co/WWc2FdB/Cherry-Pop.webp", descripcion:"Increíble líquido de Cerezas combinadas y un toque de frescura, del Mixer internacional Nachef", tamano: 30, precio: 1490},
   {id: 2, nombre: "Crème à Menthe", imagen: "https://i.ibb.co/XXGPBgQ/Creme-Menthe.webp", descripcion:"Mix de Mentas dulces cremosas y frescas. Receta mágica del Mixer Internacional Nachef", tamano: 30, precio: 1490},
@@ -410,8 +414,9 @@ const productos = [
 {id: 120, precio: 3900},
 ]; */
 
+//Renderizo las cards de la página de productos
 productos.forEach(producto => {
-  let renderizar = document.createElement("div")
+  let renderizar = document.createElement('div')
   renderizar.innerHTML = `
     <div class="col d-flex justify-content-center mb-4">
       <div class="card shadow mb-1 cardColor rounded" style="width: 20rem">
@@ -433,10 +438,14 @@ productos.forEach(producto => {
       </div>            
     </div>
   `
+  //subo el renderizado al sitio
   div.append(renderizar)
 
+  //traigo el nuevo ID de productos rendereizados
   const boton = document.getElementById(producto.id)
-  boton.addEventListener ("click", () => {
+
+  //funcion para agregar productos al carrito (+ si no existe)
+  boton.addEventListener ('click', () => {
     let productoExiste = carrito.find(item => item.id === producto.id)
     if (productoExiste === undefined){
       carrito.push({
@@ -450,15 +459,16 @@ productos.forEach(producto => {
       productoExiste.precio = productoExiste.precio + producto.precio
       productoExiste.cantidad = productoExiste.cantidad + 1
     }
-    actualizarCarrito(); 
+    actualizarCarrito();
   })
 })
 
+//funcion para renderizar los productos agregados al carrito dentro del modal de Carrito
 const actualizarCarrito = () => {
-contenedorCarrito.innerHTML="";
+contenedorCarrito.innerHTML='';
 
 carrito.forEach(producto => {
-  const carritoActualizado = document.createElement("div");
+  const carritoActualizado = document.createElement('div');
      carritoActualizado.innerHTML =`
   <div class="card bg-dark mb-3" style="max-width: 400px;">
     <div class="row g-0">
@@ -475,23 +485,31 @@ carrito.forEach(producto => {
         </div>
     </div>
   </div>
-`          
-contenedorCarrito.append(carritoActualizado)
-})
-localStorage.setItem("carrito", JSON.stringify(carrito))
+` 
+//renderizo el modal con los productos añadidos         
+contenedorCarrito.appendChild(carritoActualizado)
 
-    contadorCarrito.innerText = carrito.length
-    precioTotal.innerText = carrito.reduce((acum, producto) => acum + producto.precio, 0)
+//se sube el nuevo localStorage
+localStorage.setItem('carrito', JSON.stringify(carrito))
+})
+
+//suma articulos nuevos al carrito y lo muestro en números al costado del ícono del carrito en el nav-menu
+contadorCarrito.innerText = (' '+carrito.length)
+
+//suma los precios de los totales por articulo del carrito
+precioTotal.innerText = carrito.reduce((acum, producto) => acum + producto.precio, 0)
 }
 
-const borrarItem = (prod) => {
-  const item = carrito.find(producto=> prod.id === producto.id);
+//borro productos elegidos del carrito
+const borrarItem = (prodId) => {
+  const item = carrito.find(prod=> prod.id === prodId)
   const indice = carrito.indexOf(item)
   carrito.splice(indice, 1)
   actualizarCarrito()
 }
 
-vaciarCarrito.addEventListener("click", ()=> {
+//vacia el carrito y lo pone en cero
+vaciarCarrito.addEventListener('click', ()=> {
   carrito.length = 0
   actualizarCarrito()
 })
