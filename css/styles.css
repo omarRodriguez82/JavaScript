@@ -22,6 +22,10 @@
     background-color: black;
   }
 
+  .text_color{
+    color: whitesmoke;
+  }
+
   .eliminarItem{
     background-color: red;
     border: none;
