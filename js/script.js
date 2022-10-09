@@ -1,7 +1,3 @@
-/*_____________________________________________________________________________________________________________________*/
-/*------------------------------------DESAFIO COMPLEMENTARIO - OPERADORES AVANZADOS------------------------------------*/
-/*-------------------------------------------DESAFIO OBLIGATORIO - LIBRERIAS-------------------------------------------*/
-
 //Aplico Sweet Alert al Inicio
 Swal.fire({
   text: 'Este sitio es para mayores de 18 años.',
@@ -19,6 +15,7 @@ const contenedorCarrito = document.getElementById('contenedor-carrito');
 const vaciarCarrito = document.getElementById('vaciar-carrito');
 const contadorCarrito = document.getElementById('contador');
 const precioTotal = document.getElementById('precio-total');
+const btnRestar = document.getElementById("btn-restar");
 
 //declaro el array carrito y lo dejo vacío
 let carrito = [];
@@ -81,26 +78,26 @@ productos.forEach(producto => {
   div.append(renderizar)
 
   //traigo el nuevo ID de productos rendereizados
-  const boton = document.getElementById(producto.id)
+  const boton = document.getElementById(id)
 
   //funcion para agregar productos al carrito (+ si no existe)
   //Aplico Spread y Toastify
   boton.addEventListener ('click', () => {
     Toastify ({
-      text: `Se ha agregado ${producto.nombre} al carrito`,
+      text: `Se ha agregado ${nombre} al carrito`,
       duration: 2000,
       style:{
         background: '#0d6efd'
       }
     }).showToast()
-    let productoExiste = carrito.find(item => item.id === producto.id)
+    let productoExiste = carrito.find(item => item.id === id)
     if (productoExiste === undefined){
       carrito.push({
         ...producto,
         cantidad: 1,
       })    
     }else{
-      productoExiste.precio = productoExiste.precio + producto.precio
+      productoExiste.precio = productoExiste.precio + precio
       productoExiste.cantidad = productoExiste.cantidad + 1
     }
     actualizarCarrito();
@@ -124,14 +121,24 @@ carrito.forEach(producto => {
         <div class="col-md-8">
           <div class="card-body card-carrito">
             <h5 class="card-title text-white">${nombre}</h5>
-            <p class="card-text"><small class="text-white">Cantidad: ${cantidad}</small></p>
+
+            <div class="input-group mt-4 mb-2">
+
+              <button class="btn btn-outline-secondary text-white" type="button" onclick="botonRestar(${id})" id="btn-restar"> - </button>
+
+              <input type="text" class="form-control" placeholder="${cantidad}" aria-label=" " aria-describedby="button-addon1">
+
+              <button class="btn btn-outline-secondary text-white" type="button" onclick="botonSumar(${id})" id="${id}"> + </button>
+
+            </div>
+
             <h6 class="card-text"><small class="text-white">Precio: $${precio}</small></h6>                      
             <button id="trash" class="eliminarItem rounded" onclick="borrarItem(${id})"><i class="fas fa-trash-alt mr-2 text-white"></i></button>
-          </div>
+          </div> 
         </div>
     </div>
   </div>
-` 
+`
 //renderizo el modal con los productos añadidos         
 contenedorCarrito.appendChild(carritoActualizado)
 
@@ -153,6 +160,7 @@ const borrarItem = (prodId) => {
   const indice = carrito.indexOf(item)
   carrito.splice(indice, 1)
   actualizarCarrito()
+  localStorage.setItem('carrito', JSON.stringify(carrito))
   Toastify ({
     text: `Se ha eliminado el producto del carrito`,
     duration: 2000,
@@ -162,17 +170,39 @@ const borrarItem = (prodId) => {
   }).showToast()
 }
 
+//boton Sumar items en Cantidad - Modal Carrito
+const botonSumar = (prodId) => {
+  const item = carrito.find(prod=> prod.id === prodId)
+  precio = productos.find(prod=> prod.id === prodId)
+  item.cantidad = item.cantidad + 1
+  item.precio = item.precio + precio.precio
+  actualizarCarrito()
+}
+
+//boton Restar items en Cantidad - Modal Carrito
+const botonRestar = (prodId) => {
+  const item = carrito.find(prod=> prod.id === prodId)
+  precio = productos.find(prod=> prod.id === prodId)
+  if (item.cantidad <= 1){
+      borrarItem(prodId)
+      actualizarCarrito()
+  }else{
+  item.cantidad = item.cantidad - 1
+  item.precio = item.precio - precio.precio
+  actualizarCarrito()
+}}
+
 //vacia el carrito y lo pone en cero
-//Aplico Sweet Alert
+//Aplico Toastify
 vaciarCarrito.addEventListener('click', ()=> {
   carrito.length = 0
   localStorage.setItem('carrito', JSON.stringify(carrito))
   actualizarCarrito()
-  Swal.fire({
-    icon: 'warning',
-    html: '<h3 class="text_color">Ha vaciado el Carrito!</h3>',
-    background: '#dc3545',
-    timer: '1500',
-    showConfirmButton: false,
-  });
+  Toastify ({
+    text: `Ha vaciado el Carrito!`,
+    duration: 2000,
+    style:{
+      background: '#dc3545'
+    }
+  }).showToast()
 })

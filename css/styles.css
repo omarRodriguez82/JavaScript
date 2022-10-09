@@ -1,3 +1,7 @@
+body{
+  background-color: black;
+}
+
 .icono {
   position: fixed;
   width: 4rem;
@@ -14,20 +18,17 @@
   z-index: 100;
   transition: all 500ms ease; }
 
-  body{
-    background-color: black;
-  }
+  .logo{
+    width: 200px;
+    margin-right: auto;
+  }  
 
   .offcanvas{
     background-color: black;
   }
 
-  .text_color{
-    color: whitesmoke;
-  }
-
   .eliminarItem{
-    background-color: red;
+    background-color: #dc3545;
     border: none;
     margin-top: 1rem;
   }
@@ -46,10 +47,6 @@
   .alert{
     background-color: black;
     z-index: 100;
-  }
-  .logo{
-    width: 200px;
-    margin-right: auto;
   }
   
   .carrusel{
