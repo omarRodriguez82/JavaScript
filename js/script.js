@@ -1,3 +1,5 @@
+import { traerProductos } from "./DB/traerProductos.js";
+
 //Aplico Sweet Alert al Inicio
 Swal.fire({
   text: 'Este sitio es para mayores de 18 años.',
@@ -21,11 +23,12 @@ const btnRestar = document.getElementById("btn-restar");
 let carrito = [];
 
 //el "if" para traer el localStorage se ejecuta despues de que cargue la pagina
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () =>{
+  traerProductos();
   if(localStorage.getItem('carrito')){
-    carrito = JSON.parse(localStorage.getItem('carrito'))
-    actualizarCarrito()
-  }
+      carrito = JSON.parse(localStorage.getItem('carrito'));
+     actualizarCarrito();
+ }
 })
 
 //declaro la funcion constructora de objetos
@@ -38,17 +41,8 @@ function Producto (id, nombre, imagen, descripcion, tamano, precio) {
   this.precio = precio;
 };
 
-//declaro el array de productos y lo lleno
-const productos = [
-  {id: 1, nombre: "Cherry Pop", imagen: "https://i.ibb.co/WWc2FdB/Cherry-Pop.webp", descripcion:"Increíble líquido de Cerezas combinadas y un toque de frescura, del Mixer internacional Nachef", tamano: 30, precio: 1490},
-  {id: 2, nombre: "Crème à Menthe", imagen: "https://i.ibb.co/XXGPBgQ/Creme-Menthe.webp", descripcion:"Mix de Mentas dulces cremosas y frescas. Receta mágica del Mixer Internacional Nachef", tamano: 30, precio: 1490},
-  {id: 3, nombre: "Frozen Fruit", imagen: "https://i.ibb.co/ch96zvK/Frozen-Fruit.webp", descripcion:"Mix de frutas tropicales dulces con un toque de frescura. Un e-liquid inolvidable", tamano: 30, precio: 1490},
-  {id: 4, nombre: "Frozen Grape", imagen: "https://i.ibb.co/R9QfWfD/Frozen-Grape.webp", descripcion:"Mix de uvas blancas y negras dulces con un toque de frescura. Una combinacion justa y balanceada del Mixer Internacional Nachef", tamano: 30, precio: 1490},
-  {id: 5, nombre: "Nicholai", imagen: "https://i.ibb.co/yQNNZVY/nicholai.webp", descripcion:"Ya dejaste los cigarrillos, pero todavía extrañas ese dulce sabor a tabaco?  Lo podes resolver vapeando este Tabaquil. Intenso y equilibrado", tamano: 30, precio: 1490},
-  {id: 6, nombre: "Kuroi Washi", imagen: "https://i.ibb.co/N9HcsMY/kuroi-Washi.webp", descripcion:"Se conjugaron sabores intensos para llegar a un blend único, irrepetible. Se caracteriza por ser aromático y de sabor acaramelado", tamano: 30, precio: 1490},
-  {id: 7, nombre: "Mr Hel", imagen: "https://i.ibb.co/9vqVmjt/mrHel.webp", descripcion:"Una maravilla de Max Savage, un mix de sabores complejos de tabaco, frutos secos y crema de vainillas que logra un aroma único", tamano: 30, precio: 1490},
-  {id: 8, nombre: "Yawaraki", imagen: "https://i.ibb.co/vmSBVZk/yawaraki.webp", descripcion:"Tabaco Suave, con avellanas, nueces, almendras y maní tostados, notas de rhum y Kahlua. Mucho cuerpo, con una sensación cremosa", tamano: 30, precio: 1490},
-];
+//Llamo al array de productos
+let productos = await traerProductos()
 
 //Renderizo las cards de la página de productos
 //Aplico Desestructuración

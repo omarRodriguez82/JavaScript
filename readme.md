@@ -1,2 +1,1 @@
-El sitio es una plantilla de Bootstrap adaptada para la venta de Productos de Vapeo con carrito de Compras. El sitio todavía se encuentra en proceso de armado.
-Se agregaron funciones de JS para introducir el precio de productos, al mismo tiempo se genera un conteo de la cantidad de productos para que al finalizar la carga de los mismos, nos muestre la sunma de la cantidad de articulos cargados y el valor total acumulado.
+El sitio es una plantilla de Bootstrap adaptada para la venta de Productos de Vapeo mediante Carrito de Compras.
