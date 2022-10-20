@@ -1,4 +1,4 @@
-import { traerProductos } from "./DB/traerProductos.js";
+import { traerProductos } from "../DB/traerProductos.js";
 
 //Aplico Sweet Alert al Inicio
 Swal.fire({
@@ -17,7 +17,9 @@ const contenedorCarrito = document.getElementById('contenedor-carrito');
 const vaciarCarrito = document.getElementById('vaciar-carrito');
 const contadorCarrito = document.getElementById('contador');
 const precioTotal = document.getElementById('precio-total');
-const btnRestar = document.getElementById("btn-restar");
+const restarBtn = document.getElementById("restar"+id);
+const sumarBtn = document.getElementById("sumar"+id);
+const eliminarBtn = document.getElementById("eliminar"+id);
 
 //declaro el array carrito y lo dejo vacío
 let carrito = [];
@@ -118,16 +120,16 @@ carrito.forEach(producto => {
 
             <div class="input-group mt-4 mb-2">
 
-              <button class="btn btn-outline-secondary text-white" type="button" onclick="botonRestar(${id})" id="btn-restar"> - </button>
+              <button class="btn btn-outline-secondary text-white" type="button" id="restar${id}"> - </button>
 
               <input type="text" class="form-control" placeholder="${cantidad}" aria-label=" " aria-describedby="button-addon1">
 
-              <button class="btn btn-outline-secondary text-white" type="button" onclick="botonSumar(${id})" id="${id}"> + </button>
+              <button class="btn btn-outline-secondary text-white" type="button" id="sumar${id}"> + </button>
 
             </div>
 
             <h6 class="card-text"><small class="text-white">Precio: $${precio}</small></h6>                      
-            <button id="trash" class="eliminarItem rounded" onclick="borrarItem(${id})"><i class="fas fa-trash-alt mr-2 text-white"></i></button>
+            <button id="eliminar${id}" class="eliminarItem rounded"><i class="fas fa-trash-alt mr-2 text-white"></i></button>
           </div> 
         </div>
     </div>
@@ -135,6 +137,10 @@ carrito.forEach(producto => {
 `
 //renderizo el modal con los productos añadidos         
 contenedorCarrito.appendChild(carritoActualizado)
+
+restarBtn.addEventListener('click', () => botonRestar(id));
+sumarBtn.addEventListener('click', () => botonSumar(id));
+eliminarBtn.addEventListener('click', () => borrarItem(id));
 
 //se sube el nuevo localStorage
 localStorage.setItem('carrito', JSON.stringify(carrito))
@@ -167,7 +173,7 @@ const borrarItem = (prodId) => {
 //boton Sumar items en Cantidad - Modal Carrito
 const botonSumar = (prodId) => {
   const item = carrito.find(prod=> prod.id === prodId)
-  precio = productos.find(prod=> prod.id === prodId)
+  let precio = productos.find(prod=> prod.id === prodId)
   item.cantidad = item.cantidad + 1
   item.precio = item.precio + precio.precio
   actualizarCarrito()
@@ -176,7 +182,7 @@ const botonSumar = (prodId) => {
 //boton Restar items en Cantidad - Modal Carrito
 const botonRestar = (prodId) => {
   const item = carrito.find(prod=> prod.id === prodId)
-  precio = productos.find(prod=> prod.id === prodId)
+  let precio = productos.find(prod=> prod.id === prodId)
   if (item.cantidad <= 1){
       borrarItem(prodId)
       actualizarCarrito()
