@@ -17,9 +17,6 @@ const contenedorCarrito = document.getElementById('contenedor-carrito');
 const vaciarCarrito = document.getElementById('vaciar-carrito');
 const contadorCarrito = document.getElementById('contador');
 const precioTotal = document.getElementById('precio-total');
-const restarBtn = document.getElementById("restar"+id);
-const sumarBtn = document.getElementById("sumar"+id);
-const eliminarBtn = document.getElementById("eliminar"+id);
 
 //declaro el array carrito y lo dejo vacío
 let carrito = [];
@@ -138,6 +135,10 @@ carrito.forEach(producto => {
 //renderizo el modal con los productos añadidos         
 contenedorCarrito.appendChild(carritoActualizado)
 
+//traigo los nodos y llamo a las funciones para operar dentro del modal Carrito
+const restarBtn = document.getElementById("restar"+id);
+const sumarBtn = document.getElementById("sumar"+id);
+const eliminarBtn = document.getElementById("eliminar"+id);
 restarBtn.addEventListener('click', () => botonRestar(id));
 sumarBtn.addEventListener('click', () => botonSumar(id));
 eliminarBtn.addEventListener('click', () => borrarItem(id));
