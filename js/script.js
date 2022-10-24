@@ -1,4 +1,4 @@
-import { traerProductos } from "../DB/traerProductos.js";
+import {traerProductos} from "../DB/traerProductos.js";
 
 //Aplico Sweet Alert al Inicio
 Swal.fire({
@@ -9,7 +9,7 @@ Swal.fire({
 	imageAlt: 'Imagen Logo',
   confirmButtonColor: '#198754',
   confirmButtonText: 'Entendido!',
-  allowOutsideClick: false  
+  allowOutsideClick: false,
 });
 
 //traigo nodos por ID
@@ -17,6 +17,7 @@ const contenedorCarrito = document.getElementById('contenedor-carrito');
 const vaciarCarrito = document.getElementById('vaciar-carrito');
 const contadorCarrito = document.getElementById('contador');
 const precioTotal = document.getElementById('precio-total');
+const comprar = document.getElementById('comprar');
 
 //declaro el array carrito y lo dejo vacío
 let carrito = [];
@@ -114,17 +115,11 @@ carrito.forEach(producto => {
         <div class="col-md-8">
           <div class="card-body card-carrito">
             <h5 class="card-title text-white">${nombre}</h5>
-
             <div class="input-group mt-4 mb-2">
-
               <button class="btn btn-outline-secondary text-white" type="button" id="restar${id}"> - </button>
-
               <input type="text" class="form-control" placeholder="${cantidad}" aria-label=" " aria-describedby="button-addon1">
-
               <button class="btn btn-outline-secondary text-white" type="button" id="sumar${id}"> + </button>
-
             </div>
-
             <h6 class="card-text"><small class="text-white">Precio: $${precio}</small></h6>                      
             <button id="eliminar${id}" class="eliminarItem rounded"><i class="fas fa-trash-alt mr-2 text-white"></i></button>
           </div> 
@@ -206,4 +201,35 @@ vaciarCarrito.addEventListener('click', ()=> {
       background: '#dc3545'
     }
   }).showToast()
+})
+
+//confirmar la compra
+comprar.addEventListener('click', ()=> {
+  Swal.fire({
+    background: '#000',
+    title: 'Confirmar Compra',
+    text: "Desea confirmar su compra?",
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, confirmar!',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {      
+      carrito.length = 0
+      localStorage.setItem('carrito', JSON.stringify(carrito))
+      actualizarCarrito()
+      Swal.fire({
+        background: '#000',
+        text: 'Gracias por su Compra!',
+        position: 'center',
+        showConfirmButton: false,
+        timer: 2000,
+        imageUrl: 'https://i.ibb.co/8bnWH24/logo.png',
+        imageWidth: '300px',
+        imageAlt: 'Imagen Logo',        
+    })
+    }
+  })
 })
