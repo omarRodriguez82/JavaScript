@@ -22,6 +22,57 @@ const comprar = document.getElementById('comprar');
 //declaro el array carrito y lo dejo vacío
 let carrito = [];
 
+//funcion para renderizar los productos agregados al carrito dentro del modal de Carrito
+//Aplico Desestructuración
+const actualizarCarrito = () => {
+  contenedorCarrito.innerHTML='';
+  
+  carrito.forEach(producto => {
+    const {nombre, imagen, cantidad, precio, id} = producto
+    const carritoActualizado = document.createElement('div');
+       carritoActualizado.innerHTML =`
+    <div class="card bg-dark mb-3" style="max-width: 400px;">
+      <div class="row g-0">
+          <div class="col-md-4 align-items-center imagen-carrito">
+            <img src="${imagen}" class="img-fluid rounded" alt="Imagen Producto"/>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body card-carrito">
+              <h5 class="card-title text-white">${nombre}</h5>
+              <div class="input-group mt-4 mb-2">
+                <button class="btn btn-outline-secondary text-white" type="button" id="restar${id}"> - </button>
+                <input type="text" class="form-control" placeholder="${cantidad}" aria-label=" " aria-describedby="button-addon1">
+                <button class="btn btn-outline-secondary text-white" type="button" id="sumar${id}"> + </button>
+              </div>
+              <h6 class="card-text"><small class="text-white">Precio: $${precio}</small></h6>                      
+              <button id="eliminar${id}" class="eliminarItem rounded"><i class="fas fa-trash-alt mr-2 text-white"></i></button>
+            </div> 
+          </div>
+      </div>
+    </div>
+  `
+  //renderizo el modal con los productos añadidos         
+  contenedorCarrito.appendChild(carritoActualizado)
+  
+  //traigo los nodos y llamo a las funciones para operar dentro del modal Carrito
+  const restarBtn = document.getElementById("restar"+id);
+  const sumarBtn = document.getElementById("sumar"+id);
+  const eliminarBtn = document.getElementById("eliminar"+id);
+  restarBtn.addEventListener('click', () => botonRestar(id));
+  sumarBtn.addEventListener('click', () => botonSumar(id));
+  eliminarBtn.addEventListener('click', () => borrarItem(id));
+  
+  //se sube el nuevo localStorage
+  localStorage.setItem('carrito', JSON.stringify(carrito))
+  })
+  
+  //suma articulos nuevos al carrito y lo muestro en números al costado del ícono del carrito en el nav-menu
+  contadorCarrito.innerText = (' '+carrito.length)
+  
+  //suma los precios de los totales por articulo del carrito
+  precioTotal.innerText = carrito.reduce((acum, producto) => acum + producto.precio, 0)
+  }
+
 //el "if" para traer el localStorage se ejecuta despues de que cargue la pagina
 document.addEventListener('DOMContentLoaded', () =>{
   traerProductos();
@@ -97,57 +148,6 @@ productos.forEach(producto => {
     actualizarCarrito();
   })
 })
-
-//funcion para renderizar los productos agregados al carrito dentro del modal de Carrito
-//Aplico Desestructuración
-const actualizarCarrito = () => {
-contenedorCarrito.innerHTML='';
-
-carrito.forEach(producto => {
-  const {nombre, imagen, cantidad, precio, id} = producto
-  const carritoActualizado = document.createElement('div');
-     carritoActualizado.innerHTML =`
-  <div class="card bg-dark mb-3" style="max-width: 400px;">
-    <div class="row g-0">
-        <div class="col-md-4 align-items-center imagen-carrito">
-          <img src="${imagen}" class="img-fluid rounded" alt="Imagen Producto"/>
-        </div>
-        <div class="col-md-8">
-          <div class="card-body card-carrito">
-            <h5 class="card-title text-white">${nombre}</h5>
-            <div class="input-group mt-4 mb-2">
-              <button class="btn btn-outline-secondary text-white" type="button" id="restar${id}"> - </button>
-              <input type="text" class="form-control" placeholder="${cantidad}" aria-label=" " aria-describedby="button-addon1">
-              <button class="btn btn-outline-secondary text-white" type="button" id="sumar${id}"> + </button>
-            </div>
-            <h6 class="card-text"><small class="text-white">Precio: $${precio}</small></h6>                      
-            <button id="eliminar${id}" class="eliminarItem rounded"><i class="fas fa-trash-alt mr-2 text-white"></i></button>
-          </div> 
-        </div>
-    </div>
-  </div>
-`
-//renderizo el modal con los productos añadidos         
-contenedorCarrito.appendChild(carritoActualizado)
-
-//traigo los nodos y llamo a las funciones para operar dentro del modal Carrito
-const restarBtn = document.getElementById("restar"+id);
-const sumarBtn = document.getElementById("sumar"+id);
-const eliminarBtn = document.getElementById("eliminar"+id);
-restarBtn.addEventListener('click', () => botonRestar(id));
-sumarBtn.addEventListener('click', () => botonSumar(id));
-eliminarBtn.addEventListener('click', () => borrarItem(id));
-
-//se sube el nuevo localStorage
-localStorage.setItem('carrito', JSON.stringify(carrito))
-})
-
-//suma articulos nuevos al carrito y lo muestro en números al costado del ícono del carrito en el nav-menu
-contadorCarrito.innerText = (' '+carrito.length)
-
-//suma los precios de los totales por articulo del carrito
-precioTotal.innerText = carrito.reduce((acum, producto) => acum + producto.precio, 0)
-}
 
 //Borro productos elegidos del carrito
 //Aplico Toastify
