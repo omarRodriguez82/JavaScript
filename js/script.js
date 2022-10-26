@@ -28,7 +28,7 @@ const actualizarCarrito = () => {
   contenedorCarrito.innerHTML='';
   
   carrito.forEach(producto => {
-    const {nombre, imagen, cantidad, precio, id} = producto
+    const {nombre, imagen, cantidad, tamano1, tamano2, tamano3, precio1, precio2, precio3, id} = producto
     const carritoActualizado = document.createElement('div');
        carritoActualizado.innerHTML =`
     <div class="card bg-dark mb-3" style="max-width: 400px;">
@@ -83,13 +83,17 @@ document.addEventListener('DOMContentLoaded', () =>{
 })
 
 //declaro la funcion constructora de objetos
-function Producto (id, nombre, imagen, descripcion, tamano, precio) {
+function Producto (id, nombre, imagen, descripcion, tamano1, tamano2, tamano3, precio1, precio2, precio3) {
   this.id = id;
   this.nombre = nombre;
   this.imagen = imagen;
   this.descripcion = descripcion;
-  this.tamano = tamano;
-  this.precio = precio;
+  this.tamano1 = tamano1;
+  this.tamano2 = tamano2;
+  this.tamano3 = tamano3;
+  this.precio1 = precio1;
+  this.precio2 = precio2;
+  this.precio3 = precio3;
 };
 
 //Llamo al array de productos
@@ -98,17 +102,38 @@ let productos = await traerProductos()
 //Renderizo las cards de la página de productos
 //Aplico Desestructuración
 productos.forEach(producto => {
-  const {nombre, imagen, descripcion, precio, id} = producto
+  const {nombre, imagen, descripcion, tamano1, tamano2, tamano3, precio1, precio2, precio3, id} = producto
   let renderizar = document.createElement('div')
   renderizar.innerHTML = `
     <div class="col d-flex justify-content-center mb-4">
       <div class="card shadow mb-1 cardColor rounded" style="width: 20rem">
-        <h5 class="card-title pt-2 text-center text-primary">${nombre}</h5>
+        
+      <h5 class="card-title pt-2 text-center text-primary">${nombre}</h5>
         <img src="${imagen}" alt="Cherry-Pop" class="card-img-top"/>            
         
         <div class="card-body">
           <p class="card-text text-white-50 description">${descripcion}</p>
-          <h5 class="text-primary mb-3">Precio: <span>$ </span><span id="labelPrecio" class="precio">${precio}</span></h5>
+
+          <form class="mb-2 ${id}">                  
+            <fieldset class="single-option-radio fieldset" id="ProductSelect-option-0">
+              <p class="text-white mb-2">Tamaños:</p>
+
+              <input type="radio" checked="checked" value="30ml" id="30" name="tamano" class="single-option-selector__radio">
+              <label for="30" class="text-primary">30 ml</label>
+              
+              <input type="radio" value="60ml" id="60" name="tamano" class="single-option-selector__radio">
+              <label for="60" class="text-primary">60 ml</label>
+              
+              <input type="radio" value="120ml" id="120" name="tamano" class="single-option-selector__radio">
+              <label for="120" class="text-primary">120 ml</label>         
+            </fieldset>
+
+            <h5 class="text-primary mb-3 on">Precio: <span>$ </span><span id="labelPrecio1" class="precio1">${precio1}</span></h5>
+            <h5 class="text-primary mb-3 off">Precio: <span>$ </span><span id="labelPrecio2" class="precio2">${precio2}</span></h5>
+            <h5 class="text-primary mb-3 off">Precio: <span>$ </span><span id="labelPrecio3" class="precio3">${precio3}</span></h5>
+
+          </form>
+
           <div class="d-grid gap-2">
             <button id=${id} class="btn btn-primary button">
               Añadir a Carrito
@@ -124,6 +149,12 @@ productos.forEach(producto => {
 
   //traigo el nuevo ID de productos rendereizados
   const boton = document.getElementById(id)
+
+/*   const inputs = renderizar.querySelectorAll('input')
+  const precios = renderizar.querySelectorAll('h5')
+  inputs.addEventListener = ('click', () => {
+
+  } */
 
   //funcion para agregar productos al carrito (+ si no existe)
   //Aplico Spread y Toastify
